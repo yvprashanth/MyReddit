@@ -19,7 +19,7 @@ class App extends Component {
         </header>
           <pre>
             {
-              JSON.stringify(this.props)
+              JSON.stringify(this.props.simpleReducer)
             }
           </pre>
           <button onClick={this.buttonClickAction}>Test redux action</button>

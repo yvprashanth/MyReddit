@@ -1,0 +1,162 @@
+<html>
+    <body>
+            <div class="index--container--2OwOl"><div class="index--atom--lmAIo layout--content--3Smmq"><div class="ltr"><div class="index-module--markdown--2MdcR ureact-markdown "><h1 id="specification">Specification</h1>
+                <p>You will start with <a target="_blank">local backend development server</a>. The server is built in Node, but it is very simple. You won't need to edit the server code; instead, your code will talk to the server using documented API endpoints. You can use the server's endpoints to manage storing, reading, updating, and deleting data for your application. </p>
+                <p>Using this server, you will build a React/Redux front end for the application. The specification provided below is the minimum required for this project. You may extend your project however you like, however, as long as the minimum specification is met.</p>
+                </div></div><span></span></div></div>
+        <div class="index--atom--lmAIo layout--content--3Smmq"><div class="ltr"><div class="index-module--markdown--2MdcR ureact-markdown "><h2 id="data">Data</h2>
+            <p>There are three types of objects stored on the server:</p>
+            <ul>
+            <li>Categories</li>
+            <li>Posts</li>
+            <li>Comments</li>
+            </ul>
+            <h3 id="categories">Categories</h3>
+            <p>The server supports a small, fixed number of categories that users can put posts into. Categories are simple objects containing a name and a URL path (usually the same string). The server does not have methods for creating/modifying/deleting these categories. If you wish to add to the categories for your app, simply add your desired object to the Array in <code>categories.js</code> in the provided server.</p>
+            <h3 id="posts">Posts</h3>
+            <p>Posts are the building blocks of your application. Posts include:</p>
+            <div class="index-module--table-responsive--1zG6k"><table class="index-module--table--8j68C index-module--table-striped--3HHC-">
+            <thead>
+            <tr>
+            <th>Attribute</th>
+            <th>Type</th>
+            <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>id</td>
+            <td>String</td>
+            <td>Unique identifier</td>
+            </tr>
+            <tr>
+            <td>timestamp</td>
+            <td>Integer</td>
+            <td>Time created - default data tracks this in <a target="_blank" href="https://en.wikipedia.org/wiki/Unix_time">Unix time</a>. You can use <code>Date.now()</code> to get this number</td>
+            </tr>
+            <tr>
+            <td>title</td>
+            <td>String</td>
+            <td>Post title</td>
+            </tr>
+            <tr>
+            <td>body</td>
+            <td>String</td>
+            <td>Post body</td>
+            </tr>
+            <tr>
+            <td>author</td>
+            <td>String</td>
+            <td>Post author</td>
+            </tr>
+            <tr>
+            <td>category</td>
+            <td>String</td>
+            <td>Should be one of the categories provided by the server</td>
+            </tr>
+            <tr>
+            <td>voteScore</td>
+            <td>Integer</td>
+            <td>Net votes the post has received (default: 1) </td>
+            </tr>
+            <tr>
+            <td>deleted</td>
+            <td>Boolean</td>
+            <td>Flag if post has been 'deleted' (inaccessible by the front end), (default: false)</td>
+            </tr>
+            </tbody>
+            </table>
+            </div><h3 id="comments">Comments</h3>
+            <p>Comments are attached to parent posts. They include: </p>
+            <div class="index-module--table-responsive--1zG6k"><table class="index-module--table--8j68C index-module--table-striped--3HHC-">
+            <thead>
+            <tr>
+            <th>Attribute</th>
+            <th>Type</th>
+            <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>id</td>
+            <td>String</td>
+            <td>Unique identifier</td>
+            </tr>
+            <tr>
+            <td>parentId</td>
+            <td>String</td>
+            <td>id of the parent post</td>
+            </tr>
+            <tr>
+            <td>timestamp</td>
+            <td>Integer</td>
+            <td>Time created - default data tracks this in <a target="_blank" href="https://en.wikipedia.org/wiki/Unix_time">Unix time</a>. You can use <code>Date.now()</code> to get this number</td>
+            </tr>
+            <tr>
+            <td>body</td>
+            <td>String</td>
+            <td>Comment body</td>
+            </tr>
+            <tr>
+            <td>author</td>
+            <td>String</td>
+            <td>Comment author</td>
+            </tr>
+            <tr>
+            <td>voteScore</td>
+            <td>Integer</td>
+            <td>Net votes the comment has received (default: 1) </td>
+            </tr>
+            <tr>
+            <td>deleted</td>
+            <td>Boolean</td>
+            <td>Flag if comment has been 'deleted' (inaccessible by the front end), (default: false)</td>
+            </tr>
+            <tr>
+            <td>parentDeleted</td>
+            <td>Boolean</td>
+            <td>Flag for when the the parent post was deleted, but the comment itself was not.</td>
+            </tr>
+            </tbody>
+            </table>
+            </div><blockquote>
+            <p>This application is anonymous, with _no_ authentication or authorization. There are no user objects, and comments and posts accept any username/name for creation and editing.</p>
+            <p>The server is <em>very</em> light weight. It performs <em>zero</em> data validation to enforce the above data types. Make sure you are using the correct types when sending requests to the server.</p>
+            </blockquote>
+            <h2 id="views">Views</h2>
+            <p>Your application should have, at a minimum, four views:</p>
+            <ul>
+            <li>Default (Root)<ul>
+            <li>should list all available categories, which should link to a category view for that category</li>
+            <li>should list all of the posts</li>
+            <li>should have a control for changing the sort method for the list, including at minimum, order by voteScore and order by timestamp </li>
+            <li>should have a control for adding a new post</li>
+            </ul>
+            </li>
+            <li>Category View<ul>
+            <li>identical to the default view, but filtered to only include posts with the selected category</li>
+            </ul>
+            </li>
+            <li>Post Detail View<ul>
+            <li>should show the details of a post, including: Title, Body, Author, timestamp (in user readable format), and vote score</li>
+            <li>should list all of the comments for that post</li>
+            <li>should have controls to edit or delete the post</li>
+            <li>should have a control to add a new comment. </li>
+            <li>implement comment form however you want (inline, modal, etc.)</li>
+            <li>comments should also have controls for editing or deleting</li>
+            </ul>
+            </li>
+            <li>Create/Edit View<ul>
+            <li>should have a form to create new post or edit existing posts</li>
+            <li>when editing, existing data should be populated in the form</li>
+            </ul>
+            </li>
+            </ul>
+            <blockquote>
+            <p><strong>Post/Comment UI</strong> </p>
+            <p>Posts and comments, in all views where they are displayed, should display their current score and should have controls to increment or decrement the <code>voteScore</code> for the object. 
+            Posts should display the number of comments associated with the post.</p>
+            </blockquote>
+            </div></div><span></span></div>
+    </body>
+</html>
