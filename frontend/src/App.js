@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
 import { simpleAction } from './actions/simpleAction';
+import {Route, Switch} from 'react-router-dom'
+import HomePage from './components/HomePage';
 
 
 class App extends Component {  
@@ -13,16 +15,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-          <pre>
+        <Route exact path='/' render={() => (
+          <HomePage />
+        )} />
+        <pre>
             {
               JSON.stringify(this.props.simpleReducer)
             }
-          </pre>
-          <button onClick={this.buttonClickAction}>Test redux action</button>
+        </pre>
+        <button onClick={this.buttonClickAction}>Test redux action</button>
       </div>
     );
   }
