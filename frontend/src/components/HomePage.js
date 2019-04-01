@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import {fetchGetCategories} from '../actions/categories'
 
 class HomePage extends Component {
-    componentDidMount(){
+    componentDidMount() {
         if(this.props.fetchGetCategories){
             this.props.getCategories();
         }

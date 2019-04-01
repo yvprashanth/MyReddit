@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'http2';
+import { connect } from 'react-redux';
 import { fetchGetPostByCategory } from '../actions/post';
 
 class Category extends Component { 

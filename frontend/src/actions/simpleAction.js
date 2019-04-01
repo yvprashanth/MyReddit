@@ -1,6 +1,5 @@
 
 export const simpleAction = () => dispatch => {
-    debugger
     dispatch({
         type: 'SIMPLE_ACTION',
         payload: 'Prashanth Yerramilli is the result'
